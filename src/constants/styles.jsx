@@ -1,4 +1,10 @@
 import {StyleSheet} from 'react-native'
+import { Dimensions } from 'react-native';
+
+    const { width, height } = Dimensions.get('window');
+        const widthTela = width;
+        const heightTela = height;
+
 
 export const styles = StyleSheet.create({
 
@@ -56,7 +62,7 @@ export const styles = StyleSheet.create({
     },
     textoListaVazia:{
         color:'white',
-        fontSize: 12,
+        fontSize: 35,
         marginBottom: 50,
         marginTop: 10,
         marginLeft: 60,

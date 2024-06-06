@@ -38,9 +38,6 @@ export default function HomeScreen() {
       setMensagemDeAviso("Você não foi tóxico :)")
     }
 
-    
-
-
     // Verifica se o valor do TextInput não está vazio ou só contém espaços em branco
     if (inputText.trim() !== '') {
       // Adiciona o valor do TextInput à lista de itens
@@ -60,8 +57,6 @@ export default function HomeScreen() {
     )
   }
 
-
-
   const handleInputChange = (text: true) => {
     if (text) {
       setIsInitialTextVisible(false); // Esconde o texto inicial
@@ -69,7 +64,7 @@ export default function HomeScreen() {
       setIsInitialTextVisible(true); // Mostra o texto inicial se o input estiver vazio
     }
   };
-  const vrau = () => {
+ const vrau = () => {
     handleInputChange;
     adicionarItem();
   };
@@ -101,7 +96,7 @@ export default function HomeScreen() {
          // Mensagem para lista vazia
         ListHeaderComponent={
           <View style={styles.listaVazia}>
-            <Text style={styles.textoListaVazia}> nao tem nada aqui {mensagemDeAviso}</Text>
+            <Text style={styles.textoListaVazia}> Your text was: {mensagemDeAviso}</Text>
            </View> 
         }
       />
@@ -109,11 +104,11 @@ export default function HomeScreen() {
             style={styles.input}
             value={inputText}
             onChangeText={setInputText}
-            placeholder="Digite aqui......."
+            placeholder="Text here..."
         />
       <TouchableOpacity style={styles.botao}
       onPress={vrau}
-      >vamo parar</TouchableOpacity>
+      >To check</TouchableOpacity>
     </View>
   </View>
   );
