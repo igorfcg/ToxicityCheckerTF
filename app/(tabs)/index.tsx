@@ -7,10 +7,10 @@ export default function HomeScreen() {
   const [items, setItems] = useState([]);
   const [inputText, setInputText] = useState('');
   const [isInitialTextVisible, setIsInitialTextVisible] = useState(true);
-  const [mensagemDeAviso, setMensagemDeAviso] = useState("Verifique a agressividade do seu texto")
+  const [mensagemDeAviso, setMensagemDeAviso] = useState("Check the aggressiveness of your text")
   const [estaCarregando, setEstaCarregando] = useState(false)
 
-  // Função para adicionar um novo item à lista
+
   const adicionarItem = async () => {
     const predictions = await toxicityClassifier(inputText)
     const labelMaisProvavel = {
@@ -35,21 +35,21 @@ export default function HomeScreen() {
     if(labelMaisProvavel.probabilidade > 0.01) {
       setMensagemDeAviso(labelMaisProvavel.label)
     } else {
-      setMensagemDeAviso("Você não foi tóxico :)")
+      setMensagemDeAviso("no toxicy")
     }
 
-    // Verifica se o valor do TextInput não está vazio ou só contém espaços em branco
+  
     if (inputText.trim() !== '') {
-      // Adiciona o valor do TextInput à lista de itens
+ 
       setItems([...items, inputText]);
-      // Limpa o TextInput após adicionar o item
+
       setInputText(''); 
     }
 
     setEstaCarregando(false)
   };
 
-  const ListItem = ({ item }) => {
+  const ListaItem = ({ item }) => {
     return (
       <View style={styles.itemContainer}>
         <Text style={styles.textItem}>{item}</Text>
@@ -59,9 +59,9 @@ export default function HomeScreen() {
 
   const handleInputChange = (text: true) => {
     if (text) {
-      setIsInitialTextVisible(false); // Esconde o texto inicial
+      setIsInitialTextVisible(false); 
     } else {
-      setIsInitialTextVisible(true); // Mostra o texto inicial se o input estiver vazio
+      setIsInitialTextVisible(true);
     }
   };
   const vrau = () => {
