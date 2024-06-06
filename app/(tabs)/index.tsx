@@ -1,70 +1,120 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Image,TextInput,TouchableOpacity, Text,FlatList, Platform, View } from 'react-native';
+import { useState } from "react";
+import { styles } from "../../src/constants/styles.jsx";
+import { toxicityClassifier, toxicityLabels } from '../../src/lib/tensorflow.js';
 
 export default function HomeScreen() {
+  const [items, setItems] = useState([]);
+  const [inputText, setInputText] = useState('');
+  const [isInitialTextVisible, setIsInitialTextVisible] = useState(true);
+  const [mensagemDeAviso, setMensagemDeAviso] = useState("Verifique a agressividade do seu texto")
+  const [estaCarregando, setEstaCarregando] = useState(false)
+
+  // Função para adicionar um novo item à lista
+  const adicionarItem = async () => {
+    const predictions = await toxicityClassifier(inputText)
+    const labelMaisProvavel = {
+      label: null,
+      probabilidade: 0
+    } 
+    
+    predictions.forEach(prediction => {
+      if(prediction.label == "toxicity") {
+        return
+      }
+
+      const probabilidadeDaPredictionSerVerdadeira = prediction.results[0].probabilities[1]
+
+      if(probabilidadeDaPredictionSerVerdadeira > labelMaisProvavel.probabilidade) {
+        labelMaisProvavel.label = prediction.label
+        labelMaisProvavel.probabilidade = probabilidadeDaPredictionSerVerdadeira
+      }
+
+    })
+
+    if(labelMaisProvavel.probabilidade > 0.01) {
+      setMensagemDeAviso(labelMaisProvavel.label)
+    } else {
+      setMensagemDeAviso("Você não foi tóxico :)")
+    }
+
+    
+
+
+    // Verifica se o valor do TextInput não está vazio ou só contém espaços em branco
+    if (inputText.trim() !== '') {
+      // Adiciona o valor do TextInput à lista de itens
+      setItems([...items, inputText]);
+      // Limpa o TextInput após adicionar o item
+      setInputText(''); 
+    }
+
+    setEstaCarregando(false)
+  };
+
+  const ListItem = ({ item }) => {
+    return (
+      <View style={styles.itemContainer}>
+        <Text style={styles.textItem}>{item}</Text>
+      </View>
+    )
+  }
+
+
+
+  const handleInputChange = (text: true) => {
+    if (text) {
+      setIsInitialTextVisible(false); // Esconde o texto inicial
+    } else {
+      setIsInitialTextVisible(true); // Mostra o texto inicial se o input estiver vazio
+    }
+  };
+  const vrau = () => {
+    handleInputChange;
+    adicionarItem();
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <View style={styles.container}>
+     {isInitialTextVisible ? (
+          <Text style={styles.initialText}>Este é o texto inicial</Text>
+        ) : (
+          <Text style={styles.placeholderText}> </Text> // Espaço reservado
+        )}
+          {/* <FlatList
+        data={items}
+        renderItem={({ item }) => <View style={styles.itemContainer}>
+      </View>}
+        keyExtractor={(item) => item}
+         // Mensagem para lista vazia
+        ListHeaderComponent={
+          <View style={styles.listaVazia}>
+            <Text style={styles.textoListaVazia}>aaa</Text>
+           </View> 
+        }
+      /> */}
+        <View style={styles.content}>
+        <FlatList
+        data={items}
+        renderItem={({ item }) => ListItem(item)}
+        keyExtractor={(item) => item}
+         // Mensagem para lista vazia
+        ListHeaderComponent={
+          <View style={styles.listaVazia}>
+            <Text style={styles.textoListaVazia}> nao tem nada aqui {mensagemDeAviso}</Text>
+           </View> 
+        }
+      />
+        <TextInput
+            style={styles.input}
+            value={inputText}
+            onChangeText={setInputText}
+            placeholder="Digite aqui......."
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <TouchableOpacity style={styles.botao}
+      onPress={vrau}
+      >vamo parar</TouchableOpacity>
+    </View>
+  </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
