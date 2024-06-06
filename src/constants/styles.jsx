@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     },
     textoListaVazia:{
         color:'white',
-        fontSize: 35,
+        fontSize: 25,
         marginBottom: 50,
         marginTop: 10,
         marginLeft: 60,

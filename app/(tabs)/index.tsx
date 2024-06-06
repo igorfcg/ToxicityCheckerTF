@@ -64,7 +64,7 @@ export default function HomeScreen() {
       setIsInitialTextVisible(true); // Mostra o texto inicial se o input estiver vazio
     }
   };
- const vrau = () => {
+  const vrau = () => {
     handleInputChange;
     adicionarItem();
   };
@@ -90,8 +90,12 @@ export default function HomeScreen() {
       /> */}
         <View style={styles.content}>
         <FlatList
+        // style={styles.fat}
         data={items}
-        renderItem={({ item }) => ListItem(item)}
+        renderItem={({ item }) => (<View style={styles.item}>
+          <Text>{item.value}</Text>
+        </View>
+        )}
         keyExtractor={(item) => item}
          // Mensagem para lista vazia
         ListHeaderComponent={
