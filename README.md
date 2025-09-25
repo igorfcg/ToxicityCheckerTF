@@ -24,7 +24,7 @@ Um aplicativo em **React Native** que utiliza **TensorFlow.js** para detectar to
 
 | Texto ofensivo | Exemplo de insulto |
 |----------------|--------------------|
-| ![s4](./docs/screenshots/4.jpg) | ![s5](./docs/screenshots/5.jpg) |
+| ![s4](./docs/screenshots/4.png) | ![s5](./docs/screenshots/5.png) |
 
 ---
 
