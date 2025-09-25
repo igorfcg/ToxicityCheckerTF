@@ -1,50 +1,40 @@
-# Welcome to your Expo app 👋
+# 🧠 Toxicity Checker App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um aplicativo em **React Native** que utiliza **TensorFlow.js** para detectar toxicidade em textos (insulto, ameaça, ofensa, etc.).  
 
-## Get started
+📱 O usuário digita uma frase e o app retorna se há algum tipo de agressividade ou se o texto é seguro.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🚀 Funcionalidades
 
-2. Start the app
+- Entrada de texto pelo usuário.  
+- Classificação de toxicidade com modelo do **TensorFlow.js**.  
+- Retorna a categoria mais provável (ex.: *insult*, *threat*, *identity attack*).  
+- Se não houver nada relevante, exibe **"no toxicy"**.  
+- Histórico simples dos textos digitados.  
 
-   ```bash
-    npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 📸 Screenshots
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+| Tela inicial | Texto comum | Sem toxicidade |
+|--------------|-------------|----------------|
+| ![s1](./docs/screenshots/1.jpg) | ![s2](./docs/screenshots/2.jpg) | ![s3](./docs/screenshots/3.jpg) |
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Texto ofensivo | Exemplo de insulto |
+|----------------|--------------------|
+| ![s4](./docs/screenshots/4.jpg) | ![s5](./docs/screenshots/5.jpg) |
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 🛠️ Tecnologias usadas
 
-```bash
-npm run reset-project
-```
+- [React Native](https://reactnative.dev/)  
+- [TensorFlow.js](https://www.tensorflow.org/js)  
+- [Expo (opcional)]  
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 📂 Estrutura do Projeto
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
