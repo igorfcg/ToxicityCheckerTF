@@ -32,9 +32,5 @@ Um aplicativo em **React Native** que utiliza **TensorFlow.js** para detectar to
 
 - [React Native](https://reactnative.dev/)  
 - [TensorFlow.js](https://www.tensorflow.org/js)  
-- [Expo (opcional)]  
 
----
-
-## 📂 Estrutura do Projeto
 
